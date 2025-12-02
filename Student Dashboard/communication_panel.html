@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Communication Panel - AskAcademia</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <!-- Navbar: This page is linked from dashboards, so we provide a back button to the student dashboard as an example -->
+    <div class="navbar">
+        <h2>AskAcademia</h2>
+        <ul>
+            <li><a href="./student_dashboard.html">Dashboard</a></li>
+            <li><a href="../login.html" id="logoutBtn">Logout</a></li> 
+        </ul>
+    </div>
+
+    <!-- Main Chat Container -->
+    <div class="container" style="max-width: 1200px; padding: 20px; min-height: 80vh;">
+        
+        <div class="hero" style="padding: 0; margin-bottom: 30px;"> 
+            <h1 style="font-size: 28px; text-align: center;">Communication Panel</h1>
+            <h3 style="font-size: 16px; margin-bottom: 0; text-align: center;">Chat with your assigned mentors regarding your active requests.</h3>
+        </div>
+
+        <!-- Two-column Layout for Chat Interface -->
+        <div style="display: flex; gap: 20px; width: 100%; height: 600px; margin-top: 20px;">
+            
+            <!-- Left Column: Chat List -->
+            <div class="card" style="flex: 0 0 300px; padding: 15px;">
+                <h3>Active Chats</h3>
+                <p style="font-size: 12px; margin-bottom: 15px; text-align: left; color: #7f8c8d;">Select a conversation to begin chatting.</p>
+
+                <!-- Example Chat List Items (Simulated) -->
+                <div id="chatList" style="overflow-y: auto;">
+                    <!-- Chat Item 1: Open Request -->
+                    <div class="chat-item active-chat" style="padding: 10px; border-radius: 8px; margin-bottom: 10px; background-color: #eaf6ff; border-left: 4px solid #3498db; cursor: pointer;">
+                        <h4 style="font-size: 14px; margin: 0; color: #2c3e50;">Request ID #1003: Python ML Query</h4>
+                        <p style="font-size: 12px; color: #7f8c8d; margin-top: 5px;">Mentor: Prof. A. Patel</p>
+                    </div>
+
+                    <!-- Chat Item 2: Resolved Request -->
+                    <div class="chat-item" style="padding: 10px; border-radius: 8px; margin-bottom: 10px; background-color: #fff; border: 1px solid #eee; cursor: pointer;">
+                        <h4 style="font-size: 14px; margin: 0; color: #2c3e50;">Request ID #1001: Project Planning</h4>
+                        <p style="font-size: 12px; color: #7f8c8d; margin-top: 5px;">Mentor: Alum Riddhi V.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Chat Window -->
+            <div style="flex-grow: 1;">
+                <div class="chat-container">
+                    
+                    <!-- Chat Header -->
+                    <div style="padding: 10px 15px; background: #3498db; color: white; border-bottom: 1px solid #3498db;">
+                        <h4 style="margin: 0; font-size: 16px;">Conversation: Python ML Query (Prof. A. Patel)</h4>
+                    </div>
+
+                    <!-- Message History Area -->
+                    <div class="message-area" id="messageArea">
+                        <!-- Messages will be dynamically added here -->
+                        <div class="message received">Hi! I see you have a query on Python ML libraries. Which ones are you trying to use?</div>
+                        <div class="message sent">I'm struggling with setting up PyTorch's DataLoader correctly.</div>
+                        <div class="message received">Got it. Let's start with the basics of creating a custom dataset class...</div>
+                    </div>
+
+                    <!-- Chat Input -->
+                    <div class="chat-input">
+                        <input type="text" id="messageInput" placeholder="Type your message here..." />
+                        <button onclick="sendMessage()">Send</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Placeholder Script for Interaction -->
+    <script>
+        // Placeholder function for sending messages
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const messageText = input.value.trim();
+            if (messageText === "") return;
+
+            const messageArea = document.getElementById('messageArea');
+            const newMessage = document.createElement('div');
+            newMessage.className = 'message sent';
+            newMessage.textContent = messageText;
+            
+            messageArea.appendChild(newMessage);
+            input.value = '';
+            
+            // Scroll to the bottom of the chat
+            messageArea.scrollTop = messageArea.scrollHeight;
+        }
+    </script>
+</body>
+</html>

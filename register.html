@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AskAcademia - Registration</title>
+  <link rel="stylesheet" href="style.css">
+
+  <script>
+    function showForm(role) {
+      document.getElementById("studentForm").style.display = "none";
+      document.getElementById("facultyForm").style.display = "none";
+      document.getElementById("alumniForm").style.display = "none";
+
+      if (role === "student") {
+        document.getElementById("studentForm").style.display = "block";
+      } else if (role === "faculty") {
+        document.getElementById("facultyForm").style.display = "block";
+      } else if (role === "alumni") {
+        document.getElementById("alumniForm").style.display = "block";
+      }
+    }
+
+    function setYear() {
+      const sem = document.getElementById("semester").value;
+      let year = "";
+      if (sem === "1" || sem === "2") year = "1st Year";
+      else if (sem === "3" || sem === "4") year = "2nd Year";
+      else if (sem === "5" || sem === "6") year = "3rd Year";
+      else if (sem === "7" || sem === "8") year = "4th Year";
+      document.getElementById("year").value = year;
+    }
+
+    // Handle Registration (redirect to login page)
+    function handleRegistration(role, event) {
+      event.preventDefault(); // stop form from reloading page
+      alert(role.charAt(0).toUpperCase() + role.slice(1) + " registered successfully!");
+
+      // Redirect to login.html
+      window.location.href = "./login.html";
+    }
+  </script>
+</head>
+<body>
+  <!-- Navbar -->
+  <div class="navbar">
+    <h2>AskAcademia</h2>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="login.html">Login</a></li>
+    </ul>
+  </div>
+
+  <!-- Container -->
+  <div class="container">
+    <div class="hero">
+      <h2>Register</h2>
+    </div>
+
+    <p style="text-align:center;">Select your role:</p>
+    <div class="role-buttons">
+      <button onclick="showForm('student')">Student</button>
+      <button onclick="showForm('faculty')">Faculty</button>
+      <button onclick="showForm('alumni')">Alumni</button>
+    </div>
+
+    <!-- Student Registration -->
+    <!-- Student Registration -->
+<form id="studentForm" style="display:none;" method="POST" action="register.php">
+  <h3>Student Registration</h3>
+
+  <label>Name:</label>
+  <input type="text" name="Name" required><br><br>
+
+  <label>User ID:</label>
+  <input type="text" name="UserID" required><br><br>
+
+  <label>Password:</label>
+  <input type="password" name="Password" minlength="6" required><br><br>
+
+  <label>Enrollment No.:</label>
+  <input type="text" name="EnrollmentNumber" required><br><br>
+
+  <label>Semester:</label>
+  <select id="semester" name="Semester" onchange="setYear()" required>
+    <option value="">--Select--</option>
+    <option value="1">1</option><option value="2">2</option>
+    <option value="3">3</option><option value="4">4</option>
+    <option value="5">5</option><option value="6">6</option>
+    <option value="7">7</option><option value="8">8</option>
+  </select><br><br>
+
+  <label>Year:</label>
+  <input type="text" id="year" name="Year" readonly><br><br>
+
+  <label>Course:</label>
+  <select name="Course" required>
+    <option value="">--Select Course--</option>
+    <option value="BECE">BECE</option>
+    <option value="BEIT">BEIT</option>
+    <option value="BEME">BEME</option>
+    <option value="BEECE">BEECE</option>
+    <option value="BEEE">BEEE</option>
+    <option value="BE Civil Engg.">BE Civil Engg.</option>
+  </select><br><br>
+
+  <label>Email:</label>
+  <input type="email" name="Email" required><br><br>
+
+  <button type="submit" name="submit">Register</button>
+</form>
+
+    <!-- Faculty Registration -->
+    <form id="facultyForm" style="display:none;" onsubmit="handleRegistration('faculty', event)">
+      <h3>Faculty Registration</h3>
+      <label>Name:</label>
+      <input type="text" required><br><br>
+      <label>User ID:</label>
+      <input type="text" required><br><br>
+      <label>Password:</label>
+      <input type="password" minlength="6" required><br><br>
+      <label>Photo:</label>
+      <input type="file" accept="image/*"><br><br>
+      <label>Email:</label>
+      <input type="email" required><br><br>
+      <label>Department:</label>
+      <select required>
+        <option value="">--Select Department--</option>
+        <option>Computer Department</option>
+        <option>Civil Department</option>
+        <option>Mechanical Department</option>
+        <option>Electrical Department</option>
+        <option>Information Technology</option>
+        <option>Electronics and Communication</option>
+      </select><br><br>
+      <label>Activity Cell (optional):</label>
+      <input type="text"><br><br>
+      <label>Category:</label>
+      <select required>
+        <option value="">--Select Category--</option>
+        <option>Academic/Exam-related Stress</option>
+        <option>Career Guidance (Placements, GATE, Abroad Studies, Research)</option>
+        <option>Harassment/Bullying</option>
+        <option>Infrastructure/Digital/Campus Tech Issues</option>
+        <option>Mental Health or Personal Support</option>
+      </select><br><br>
+      <button type="submit">Register</button>
+    </form>
+
+    <!-- Alumni Registration -->
+    <form id="alumniForm" style="display:none;" onsubmit="handleRegistration('alumni', event)">
+      <h3>Alumni Registration</h3>
+      <label>User ID:</label>
+      <input type="text" required><br><br>
+      <label>Password:</label>
+      <input type="password" minlength="6" required><br><br>
+      <label>Name:</label>
+      <input type="text" required><br><br>
+      <label>Photo:</label>
+      <input type="file" accept="image/*"><br><br>
+      <label>Pass-out Year:</label>
+      <input type="text" required><br><br>
+      <label>Field of Interest:</label>
+      <input type="text" required><br><br>
+      <button type="submit">Register</button>
+    </form>
+  </div>
+</body>
+</html>

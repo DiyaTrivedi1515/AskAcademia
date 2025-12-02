@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Raise New Request - AskAcademia</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <div class="navbar">
+        <h2>AskAcademia | New Request</h2>
+        <ul>
+            <li><a href="./student_dashboard.html">Dashboard</a></li>
+            <li><a href="../login.html">Logout</a></li> 
+        </ul>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <h3>📝 Submit a New Help Request</h3>
+            <p>Please provide a clear title, select the appropriate category, and describe your issue in detail.</p>
+            
+            <form id="requestSubmissionForm" onsubmit="submitHelpRequest(event)"> 
+                
+                <label for="requestTitle">Title (e.g., Guidance on GATE Prep):</label>
+                <input type="text" id="requestTitle" required>
+
+                <label for="requestCategory">Category:</label>
+                <select id="requestCategory" required>
+                    <option value="">-- Select Category --</option>
+                    <option value="Academic">Academic/Exam-related Stress</option>
+                    <option value="Career">Career Guidance (Placements, GATE, Abroad Studies, Research)</option>
+                    <option value="Harassment">Harassment/Bullying</option>
+                    <option value="Infrastructure">Infrastructure/Digital/Campus Tech Issues</option>
+                    <option value="MentalHealth">Mental Health or Personal Support</option>
+                </select>
+
+                <label for="requestDescription">Detailed Description of your Issue:</label>
+                <textarea id="requestDescription" rows="6" required></textarea>
+
+                <button type="submit">Submit Request</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        // Placeholder JavaScript function for client-side validation and API call
+        function submitHelpRequest(event) {
+            event.preventDefault();
+            // 1. Collect data from form fields (Title, Category, Description)
+            const title = document.getElementById('requestTitle').value;
+            const category = document.getElementById('requestCategory').value;
+            const description = document.getElementById('requestDescription').value;
+
+            // 2. Call the backend API (Node.js/Express) using the Fetch API or Axios
+            console.log('Request data ready for API:', { title, category, description });
+            
+            // This is the CRUCIAL STEP for database connectivity
+            // You will replace this with an actual API call later:
+            // fetch('/api/requests/submit', { ... }).then(response => { ... });
+
+            alert('Request Submitted! (Requires backend integration)');
+            // On successful submission, redirect the user:
+            // window.location.href = 'track_requests.html'; 
+        }
+    </script>
+</body>
+</html>

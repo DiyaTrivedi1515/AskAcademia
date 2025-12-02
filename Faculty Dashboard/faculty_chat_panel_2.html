@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Triage Panel - AskAcademia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f7f9fb; }
+        .chat-list-container { max-height: 80vh; overflow-y: auto; }
+        .message-area { height: 480px; overflow-y: auto; padding: 16px; scroll-behavior: smooth; background-color: #ffffff; }
+        .message-bubble { max-width: 80%; padding: 10px 15px; border-radius: 18px; word-wrap: break-word; line-height: 1.4; }
+        .internal-note-bubble { max-width: 90%; padding: 8px 12px; border-radius: 12px; font-style: italic; background-color: #ffedd5; color: #9a3412; border: 1px solid #f97316; margin-top: 5px; }
+        /* Custom scrollbar */
+        .chat-list-container::-webkit-scrollbar, .message-area::-webkit-scrollbar { width: 6px; }
+        .chat-list-container::-webkit-scrollbar-thumb, .message-area::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 10px; }
+    </style>
+</head>
+<body class="p-4 sm:p-6 md:p-8 min-h-screen">
+
+    <div class="max-w-7xl mx-auto">
+        <!-- Navbar/Header Area -->
+        <div class="flex justify-between items-center py-4 px-6 bg-red-700 rounded-t-xl shadow-lg">
+            <h2 class="text-2xl font-bold text-white">AskAcademia</h2>
+            <nav>
+                <a href="faculty_dashboard.html" class="text-red-200 hover:text-white transition duration-150 mr-4">Dashboard</a>
+                <a href="../index.html" class="text-white font-semibold bg-red-500 px-3 py-1 rounded-lg hover:bg-red-600">Logout</a>
+            </nav>
+        </div>
+
+        <div class="bg-white shadow-2xl rounded-b-xl p-4 md:p-6 flex flex-col lg:flex-row gap-6 h-[85vh]">
+            
+            <!-- Left Column: Chat List -->
+            <div class="w-full lg:w-1/3 bg-gray-50 rounded-lg p-4 flex flex-col h-full lg:h-auto">
+                <h3 class="text-lg font-semibold text-gray-800 mb-2 border-b pb-2">Active Triage Requests</h3>
+                <p class="text-xs text-gray-500 mb-4">Select a conversation to manage or communicate.</p>
+
+                <div id="chatList" class="chat-list-container flex-grow space-y-3">
+                    <!-- Chat Item 1: Active Request (Faculty Theme) -->
+                    <div class="p-3 rounded-lg shadow-md bg-red-100 border-l-4 border-red-700 cursor-pointer transition duration-150 hover:bg-red-200">
+                        <h4 class="text-sm font-bold text-red-800">Request ID #1003: Python ML Query</h4>
+                        <p class="text-xs text-gray-600 mt-1">Mentor: Prof. A. Patel</p>
+                        <p class="text-xs text-red-500 font-medium">Status: In Progress</p>
+                    </div>
+
+                    <!-- Chat Item 2: Resolved Request -->
+                    <div class="p-3 rounded-lg border border-gray-200 cursor-pointer transition duration-150 hover:bg-gray-100">
+                        <h4 class="text-sm font-semibold text-gray-700">Request ID #1001: Project Planning</h4>
+                        <p class="text-xs text-gray-500 mt-1">Mentor: Alum Riddhi V.</p>
+                        <p class="text-xs text-green-500 font-medium">Status: Resolved</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Chat Window -->
+            <div class="w-full lg:w-2/3 flex flex-col bg-white rounded-lg border border-gray-200 shadow-md">
+                
+                <!-- Chat Header -->
+                <div class="p-3 bg-red-700 text-white rounded-t-lg">
+                    <h4 id="conversationHeader" class="text-lg font-semibold">Conversation: Python ML Query (Prof. A. Patel)</h4>
+                </div>
+
+                <!-- Management Actions (Faculty/Admin Specific) -->
+                <div class="p-3 bg-red-50 border-b border-red-200 flex flex-wrap gap-2 justify-start">
+                    <button onclick="simulateAction('Refer')" 
+                        class="flex items-center space-x-1 px-3 py-1.5 text-xs font-semibold rounded-full bg-yellow-500 hover:bg-yellow-600 text-gray-900 transition">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a8 8 0 100 16A8 8 0 0010 2zm0 14a6 6 0 110-12 6 6 0 010 12zM9 10H5v2h4v3l5-4-5-4v3z"/></svg>
+                        <span>Refer to Alumni</span>
+                    </button>
+                    <button onclick="simulateAction('Resolve')" 
+                        class="flex items-center space-x-1 px-3 py-1.5 text-xs font-semibold rounded-full bg-green-600 hover:bg-green-700 text-white transition">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-9H7v2h2v2h2v-2h2V9h-2V7H9v2z"/></svg>
+                        <span>Mark Resolved</span>
+                    </button>
+                    <button onclick="promptForInternalNote()" 
+                        class="flex items-center space-x-1 px-3 py-1.5 text-xs font-semibold rounded-full bg-indigo-500 hover:bg-indigo-600 text-white transition">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M4 4h12a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2zm4 4h4v2H8V8zM4 12h8v2H4v-2z"/></svg>
+                        <span>Add Internal Note</span>
+                    </button>
+                </div>
+                
+                <!-- Message History Area -->
+                <div id="messageArea" class="message-area flex-grow">
+                    <!-- Messages will be dynamically added here -->
+                </div>
+
+                <!-- Chat Input -->
+                <div class="p-4 border-t border-gray-200 bg-gray-50 flex items-center rounded-b-lg">
+                    <input type="text" id="messageInput" placeholder="Type your message to the student..." 
+                        class="flex-grow p-3 border border-gray-300 rounded-lg focus:ring-red-700 focus:border-red-700 transition" />
+                    <button id="sendButton" onclick="sendMessage()"
+                        class="ml-3 bg-red-700 hover:bg-red-800 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition">
+                        Send
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- Configuration & State ---
+        const CURRENT_USER_ROLE = 'Faculty'; 
+        const CURRENT_USER_ID = 20; // Dr. Alok Patel (Faculty)
+        const CURRENT_USER_NAME = 'Dr. Alok Patel (Faculty)';
+
+        // Mock Data: Includes regular chat and an Internal Note (is_internal: true)
+        const MOCK_MESSAGES = [
+            { id: 1, senderId: 10, senderName: "Riddhi Varma (Student)", role: "Student", content: "Hello Dr. Patel, I was referred to you for help structuring the DFDs for my project. I'm struggling with PyTorch's DataLoader.", timestamp: "2025-10-13T09:00:00Z", is_internal: false },
+            { id: 2, senderId: 20, senderName: "Dr. Alok Patel (Faculty)", role: "Faculty", content: "Hi Riddhi, understood. The DFDs show the data flow correctly, but PyTorch requires a custom Dataset class. Let's focus on that implementation.", timestamp: "2025-10-13T09:05:00Z", is_internal: false },
+            { id: 3, senderId: 20, senderName: "Dr. Alok Patel (Faculty)", role: "Faculty", content: "Internal: This is a coding-specific query, better suited for Alumni with recent industry experience. Must prepare for referral.", timestamp: "2025-10-13T09:08:00Z", is_internal: true }, // <-- Internal Note Sample
+            { id: 4, senderId: 10, senderName: "Riddhi Varma (Student)", role: "Student", content: "I appreciate the clarity. I'll define the class first. Should I include the transforms in the __init__ or __getitem__ method?", timestamp: "2025-10-13T09:15:00Z", is_internal: false },
+        ];
+
+        // --- DOM Elements ---
+        const messageArea = document.getElementById('messageArea');
+        const messageInput = document.getElementById('messageInput');
+        const sendButton = document.getElementById('sendButton');
+
+        // --- Core Functions ---
+
+        function createMessageElement(message) {
+            // 1. Handle Internal Notes (Visible to Faculty/Alumni only)
+            if (message.is_internal) {
+                const noteEl = document.createElement('div');
+                noteEl.className = 'flex justify-center w-full my-2';
+                noteEl.innerHTML = `
+                    <div class="internal-note-bubble flex flex-col text-xs md:text-sm">
+                        <span class="font-bold mb-1">Internal Note (${message.senderName}):</span>
+                        <p>${message.content}</p>
+                        <span class="text-right mt-1 opacity-80">${new Date(message.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                    </div>
+                `;
+                return noteEl;
+            }
+
+            // 2. Handle Standard Messages
+            const isSender = message.senderId === CURRENT_USER_ID;
+            const alignClass = isSender ? 'justify-end' : 'justify-start';
+            const bubbleClasses = isSender 
+                ? 'bg-red-700 text-white shadow-lg' // Faculty/Admin message color
+                : 'bg-gray-200 text-gray-800 shadow-sm';
+            
+            const senderNameDisplay = isSender ? '' : `<span class="text-xs font-semibold text-gray-600 block mb-0.5">${message.senderName}</span>`;
+            
+            const messageEl = document.createElement('div');
+            messageEl.className = `flex ${alignClass} my-2`;
+            messageEl.innerHTML = `
+                <div class="flex flex-col ${isSender ? 'items-end' : 'items-start'} max-w-full">
+                    ${senderNameDisplay}
+                    <div class="message-bubble ${bubbleClasses}">
+                        ${message.content}
+                    </div>
+                    <span class="text-xs text-gray-400 block mt-0.5">${new Date(message.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                </div>
+            `;
+            return messageEl;
+        }
+
+        function renderMessages() {
+            messageArea.innerHTML = '';
+            MOCK_MESSAGES.forEach(message => {
+                const el = createMessageElement(message);
+                if (el) {
+                    messageArea.appendChild(el);
+                }
+            });
+            messageArea.scrollTop = messageArea.scrollHeight;
+        }
+
+        function sendMessage(isInternal = false) {
+            const content = messageInput.value.trim();
+            if (content === "") return;
+
+            const newMessage = {
+                id: MOCK_MESSAGES.length + 1,
+                senderId: CURRENT_USER_ID,
+                senderName: CURRENT_USER_NAME, 
+                role: CURRENT_USER_ROLE,
+                content: content,
+                timestamp: new Date().toISOString(),
+                is_internal: isInternal
+            };
+
+            MOCK_MESSAGES.push(newMessage);
+            const el = createMessageElement(newMessage);
+            if (el) {
+                messageArea.appendChild(el);
+            }
+            messageInput.value = '';
+            messageArea.scrollTop = messageArea.scrollHeight;
+        }
+
+        function promptForInternalNote() {
+            const note = prompt('Enter Internal Note (Only visible to Faculty/Alumni):');
+            if (note) {
+                messageInput.value = note;
+                sendMessage(true); // Send as internal note
+            }
+        }
+        
+        function simulateAction(action) {
+            alert(`Faculty Action: ${action} initiated successfully.`);
+        }
+
+
+        // --- Event Listeners and Initialization ---
+        sendButton.addEventListener('click', () => sendMessage(false));
+        messageInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage(false);
+            }
+        });
+
+        window.onload = renderMessages;
+
+    </script>
+</body>
+</html>

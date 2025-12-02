@@ -1,0 +1,483 @@
+/* Reset & Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  /* Using your preferred background gradient */
+  background: linear-gradient(to right, #eef2f3, #d9e4f5); 
+  color: #333;
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow-x: hidden;
+  margin: 0; /* FIX 1: Removes the default browser margin from the top of the body */
+}
+
+/* Decorative Backgrounds */
+body::before {
+  content: "";
+  position: absolute;
+  top: 10%;
+  left: 5%;
+  width: 300px;
+  height: 300px;
+  background: url('https://img.icons8.com/ios/500/graduation-cap.png') no-repeat center;
+  background-size: contain;
+  opacity: 0.05;
+  z-index: 0;
+}
+
+body::after {
+  content: "";
+  position: absolute;
+  bottom: 10%;
+  right: 5%;
+  width: 350px;
+  height: 350px;
+  background: url('https://img.icons8.com/ios/500/books.png') no-repeat center;
+  background-size: contain;
+  opacity: 0.05;
+  z-index: 0;
+}
+
+/* Navbar */
+.navbar {
+  background: linear-gradient(135deg, #2c3e50, #34495e);
+  color: white;
+  padding: 14px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  z-index: 10;
+}
+
+.navbar h2 {
+  font-size: 22px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+  gap: 22px;
+  margin-left: auto;
+  flex-grow: 0; /* FIX 2: Ensures the list doesn't grow and is pushed entirely to the right */
+}
+
+.navbar ul li a {
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  transition: 0.3s;
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+
+.navbar ul li a:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #f39c12;
+}
+
+/* Hero section */
+.hero {
+  text-align: center;
+  /* Removed bottom padding previously causing issues on homepage */
+  padding: 50px 20px 0; 
+}
+
+.hero img {
+  max-width: 180px;
+  margin-bottom: 20px;
+  filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.2));
+}
+
+.hero h1 {
+  font-size: 32px;
+  color: #2c3e50;
+  margin-bottom: 12px;
+}
+
+.hero h3 {
+  font-weight: 400;
+  color: #555;
+  font-size: 18px;
+  margin-bottom: 25px;
+}
+
+/* Container (card style with animation) */
+.container {
+  width: 90%;
+  max-width: 900px; 
+  /* ADJUSTMENT: Reduced top margin from 60px to 40px to pull the box higher */
+  margin: 40px auto; 
+  background: #fff;
+  padding: 40px;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  animation: fadeSlideIn 0.8s ease-in-out;
+
+  /* Centering content */
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  text-align: center; 
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Paragraphs */
+p {
+  margin-bottom: 18px;
+  text-align: left; /* Defaulted to left for better content readability */
+  color: #444;
+  font-size: 15px;
+}
+
+/* Container text alignment reset for center pages */
+.container p, .container h3 {
+  text-align: center;
+}
+/* Ensure the text inside cards and tables is left-aligned */
+.dashboard-card p, .card p, .card h3 {
+  text-align: left;
+}
+
+
+/* Homepage links (not necessary for other pages) */
+.home-links {
+  text-align: center;
+  margin-top: 25px;
+}
+
+.home-links a {
+  display: inline-block;
+  margin: 10px;
+  padding: 12px 28px;
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  color: #fff;
+  border-radius: 8px;
+  transition: transform 0.2s, background 0.3s;
+}
+
+.home-links a:hover {
+  transform: translateY(-3px);
+  background: linear-gradient(135deg, #2980b9, #1c5d8c);
+}
+
+/* Forms */
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  justify-content: center; 
+  margin: 0 auto;
+  width: 100%;
+  max-width: 500px;
+  animation: fadeUp 0.7s ease;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+form h3 {
+  margin-bottom: 18px;
+  color: #000;
+  text-align: center;
+}
+
+/* Full-width aligned inputs */
+form input:not([type="radio"]):not([type="checkbox"]),
+form select,
+form textarea { /* Added textarea */
+  width: 100%;
+  max-width: 500px;
+  display: block;
+  padding: 12px;
+  margin: 8px 0 18px 0;
+  border: 1px solid #ccc; /* Changed to soft gray for better aesthetics */
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border 0.3s, box-shadow 0.3s;
+}
+form textarea {
+    resize: vertical;
+}
+
+form input:focus,
+form select:focus,
+form textarea:focus {
+  border-color: #3498db;
+  outline: none;
+  box-shadow: 0 0 6px rgba(52, 152, 219, 0.25);
+}
+
+/* Submit buttons */
+form button,
+.dashboard-btn,
+form input[type="submit"] {
+  width: 100%;
+  max-width: 500px;
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  margin-top: 6px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: transform 0.2s, background 0.3s;
+}
+
+form button:hover,
+.dashboard-btn:hover,
+form input[type="submit"]:hover {
+  background: linear-gradient(135deg, #2980b9, #1c5d8c);
+  transform: translateY(-2px);
+}
+
+/* Role buttons (Login & Register) */
+.role-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.role-buttons button {
+  padding: 12px 28px;
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: transform 0.2s, background 0.3s, box-shadow 0.3s;
+}
+
+.role-buttons button:hover {
+  transform: translateY(-3px);
+  background: linear-gradient(135deg, #2980b9, #1c5d8c);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+/* Card components for general content (e.g., tables) */
+.card {
+    background: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    margin-bottom: 30px;
+    border-left: 5px solid #3498db; /* Blue accent line */
+    width: 100%; /* Ensure card takes full width of container */
+}
+
+
+/* --- DASHBOARD STYLES --- */
+
+/* Dashboard Layout: 2x2 Grid for Student/Faculty */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 30px; 
+    width: 100%;
+    margin-top: 30px;
+}
+/* Alumni Dashboard (2 cards) or small screens */
+.dashboard-grid[style="grid-template-columns: 1fr;"] {
+    grid-template-columns: 1fr;
+    max-width: 500px;
+}
+
+/* Media query: On screens smaller than 700px, stack cards vertically (1 column) */
+@media (max-width: 700px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr; /* Single column layout on small devices */
+    }
+}
+
+.dashboard-card {
+    display: block;
+    text-decoration: none;
+    background: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+    border-left: 5px solid #3498db; 
+    text-align: left; 
+    min-height: 150px; 
+}
+
+.dashboard-card:hover {
+    transform: translateY(-3px); 
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.dashboard-card h3 {
+    color: #2c3e50;
+    font-size: 18px;
+    margin-bottom: 8px;
+    padding: 0;
+    border-bottom: none; 
+}
+
+.dashboard-card p {
+    color: #555;
+    font-size: 14px;
+    margin: 0;
+}
+
+/* Table Style for Request List */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #ddd; /* Full table border */
+}
+
+.data-table th, .data-table td {
+    padding: 14px 18px;
+    text-align: left;
+    border: 1px solid #ddd; /* Cell borders */
+}
+
+/* Remove internal borders where the full table border already covers it (Aesthetics) */
+.data-table th:last-child, .data-table td:last-child {
+    border-right: 1px solid #ddd;
+}
+.data-table tr:last-child td {
+    border-bottom: 1px solid #ddd;
+}
+
+
+.data-table th {
+    background-color: #f0f4f7;
+    color: #2c3e50;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.data-table tr:hover {
+    background-color: #fafafa;
+}
+
+/* Status Badges */
+.status {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.status.pending {
+    background-color: #f9e3c9;
+    color: #e67e22; /* Orange */
+}
+
+.status.in-progress {
+    background-color: #c9e6f9;
+    color: #3498db; /* Blue */
+}
+
+.status.resolved, .status.completed {
+    background-color: #d4f7d4;
+    color: #27ae60; /* Green */
+}
+
+/* Chat/Messaging Styles */
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 600px; /* Increased height for better chat experience */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    /* Ensure chat container fits mobile */
+    min-height: 400px;
+}
+.message-area {
+    flex-grow: 1;
+    padding: 15px;
+    overflow-y: auto;
+    background: #fcfdff;
+    display: flex; /* Added for correct message alignment */
+    flex-direction: column; /* Added for correct message alignment */
+}
+
+.message {
+    padding: 8px 15px;
+    border-radius: 18px;
+    margin-bottom: 10px;
+    max-width: 70%;
+    word-wrap: break-word;
+    font-size: 14px;
+}
+
+.message.sent {
+    background-color: #3498db;
+    color: white;
+    align-self: flex-end; /* Align message to the right (sender) */
+    margin-left: auto;
+}
+
+.message.received {
+    background-color: #ecf0f1;
+    color: #333;
+    align-self: flex-start; /* Align message to the left (receiver) */
+    margin-right: auto;
+}
+
+.chat-input {
+    display: flex;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+    background: #fff;
+}
+
+.chat-input input[type="text"] {
+    flex-grow: 1;
+    margin: 0 10px 0 0;
+    border: 1px solid #ccc;
+}
+
+.chat-input button {
+    width: auto;
+    max-width: 150px;
+    margin: 0;
+}

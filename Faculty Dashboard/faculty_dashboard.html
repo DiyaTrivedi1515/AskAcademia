@@ -1,0 +1,56 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Faculty Dashboard - AskAcademia</title>
+        <link rel="stylesheet" href="../style.css">
+    </head>
+    <body>
+        <!-- Navbar: Only AskAcademia Title and Logout Option -->
+        <div class="navbar">
+            <h2>AskAcademia</h2>
+            <ul>
+                <!-- Logout link redirects to login page and will clear the session via JS/API -->
+                <li><a href="../login.html" id="logoutBtn">Logout</a></li> 
+            </ul>
+        </div>
+    
+        <!-- Main Dashboard Container -->
+        <div class="container">
+            <!-- Hero Section -->
+            <div class="hero" style="padding: 0; margin-bottom: 20px;"> 
+                <h1 style="font-size: 28px;">Faculty Dashboard</h1>
+                <h3 style="font-size: 16px; margin-bottom: 0;">Welcome, Prof. Patel! Manage incoming support requests.</h3>
+            </div>
+            
+            <!-- Dashboard Sections (2x2 Grid Layout) -->
+            <div class="dashboard-grid">
+                
+                <!-- 1. View Requests (Core Triage Function) -->
+                <a href="view_requests_faculty.html" class="dashboard-card">
+                    <h3>📋 View & Manage Requests</h3>
+                    <p>Review pending and resolved help requests for your assigned category.</p>
+                </a>
+    
+                <!-- 2. Communication Panel -->
+                <a href="faculty_chat_panel_2.html" class="dashboard-card">
+                    <h3>💬 Communication Panel</h3>
+                    <p>Chat with students, alumni mentors, or fellow faculty members.</p>
+                </a>
+    
+                <!-- 3. Search Feature (Directory) -->
+                <a href="search_directory.html" class="dashboard-card">
+                    <h3>🔍 Search Directory</h3>
+                    <p>Search and view profiles of other faculty, students, and alumni.</p>
+                </a>
+                
+                <!-- Added a fourth link for future scalability/report requirements (Referral Management) -->
+                <a href="referral_management.html" class="dashboard-card" style="border-left-color: #e67e22;">
+                    <h3>➡️ Referral Management</h3>
+                    <p>Assign pending requests to specialized Alumni mentors for guidance.</p>
+                </a>
+    
+            </div>
+        </div>
+        <!-- You will add your faculty_dashboard.js file here later for interactivity -->
+    </body>
+    </html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AskAcademia - Login</title>
+  <link rel="stylesheet" href="style.css">
+
+  <script>
+    // Show login form when a role is selected
+    function showLoginForm(role) {
+      document.getElementById("loginForm").style.display = "block";
+      document.getElementById("role").value = role;
+      document.getElementById("roleLabel").textContent = role + " Login";
+    }
+
+    // Handle login form submission
+    function handleLogin(event) {
+      event.preventDefault(); // prevent page reload
+
+      const role = document.getElementById("role").value;
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      // Simple validation
+      if (!username || !password) {
+        alert("Please enter both username and password.");
+        return;
+      }
+
+      // Redirect based on role
+      if (role === "Student") {
+        window.location.href = "./Student Dashboard/student_dashboard.html";
+      } else if (role === "Faculty") {
+        window.location.href = "./Faculty Dashboard/faculty_dashboard.html";
+      } else if (role === "Alumni") {
+        window.location.href = "./Alumni Dashboard/alumni_dashboard.html";
+      } else {
+        alert("Please select a role first.");
+      }
+    }
+  </script>
+</head>
+<body>
+  <!-- Navbar -->
+  <div class="navbar">
+    <h2>AskAcademia</h2>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="register.html">Register</a></li>
+    </ul>
+  </div>
+
+  <!-- Container -->
+  <div class="container">
+    <div class="hero">
+      <h2>Login</h2>
+    </div>
+    
+    <p style="text-align:center;">Select your role:</p>
+    <div class="role-buttons">
+      <button onclick="showLoginForm('Student')">Student</button>
+      <button onclick="showLoginForm('Faculty')">Faculty</button>
+      <button onclick="showLoginForm('Alumni')">Alumni</button>
+    </div>
+
+    <form id="loginForm" style="display:none;" onsubmit="handleLogin(event)">
+      <input type="hidden" id="role">
+      <h3 id="roleLabel">Login</h3>
+      
+      <label>Username:</label>
+      <input type="text" id="username" required><br><br> 
+
+      <label>Password:</label>
+      <input type="password" id="password" required><br><br>
+
+      <button type="submit">Login</button>
+    </form>
+  </div>
+</body>
+</html>

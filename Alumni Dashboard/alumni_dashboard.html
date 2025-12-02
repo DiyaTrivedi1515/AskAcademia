@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Alumni Dashboard - AskAcademia</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <!-- Navbar: Only AskAcademia Title and Logout Option -->
+    <div class="navbar">
+        <h2>AskAcademia</h2>
+        <ul>
+            <!-- Logout link redirects to login page and will clear the session via JS/API -->
+            <li><a href="../login.html" id="logoutBtn">Logout</a></li> 
+        </ul>
+    </div>
+
+    <!-- Main Dashboard Container -->
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="hero" style="padding: 0; margin-bottom: 20px;"> 
+            <h1 style="font-size: 28px;">Alumni Mentor Dashboard</h1>
+            <h3 style="font-size: 16px; margin-bottom: 0;">Welcome, Riddhi! Review your referred requests and connect with students.</h3>
+        </div>
+        
+        <!-- Dashboard Sections (Layout adjusted for 2 main cards) -->
+        <div class="dashboard-grid" style="grid-template-columns: 1fr;">
+            
+            <!-- 1. Requests Received (Core Function) -->
+            <a href="view_requests_alumni.html" class="dashboard-card" style="border-left-color: #f39c12;">
+                <h3>📥 Requests Received</h3>
+                <p>View the list of student requests that faculty have assigned to you for specialized guidance.</p>
+            </a>
+
+            <!-- 2. Communication Panel (Core Function - Student Specific) -->
+            <a href="alumni_chat_panel_2.html" class="dashboard-card" style="border-left-color: #3498db;">
+                <h3>💬 Communication Panel</h3>
+                <p>Chat only with students whose requests have been referred to you by a faculty member.</p>
+            </a>
+
+            <!-- Note: "My Impact" and "Search Directory" cards have been removed. -->
+
+        </div>
+    </div>
+</body>
+</html>
